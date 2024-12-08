@@ -1,0 +1,23 @@
+
+
+<launch>
+    <arg name="subscribe_topic" default="/Odometry"/>
+    <arg name="publish_topic" default="/output"/>
+
+    <node name="radar_vision" pkg="radar_vision" type="radar_vision_node" output="screen">
+        <param name="subscribe_topic" value="/Odometry"/>
+        <param name="publish_topic" value="/output"/>
+    </node>
+
+<!--      -->
+<!--             <include file="$(find livox_ros_driver2)/launch_ROS1/msg_MID360.launch"> -->
+<!--                 <arg name="rviz_enable" value="false"/> -->
+<!--                 <arg name="publish_freq" value="10"/> -->
+<!--                 <arg name="msg_frame_id" value="livox_frame"/> -->
+<!--             </include> -->
+<!--              -->
+<!--              -->
+<!--             <include file="$(find rm_navigation)/launch/lio_launch/mapping_mid360.launch"/> -->
+<!--             <include file="$(find fast_lio)/launch/mapping_mid360.launch"/> -->
+
+</launch>
