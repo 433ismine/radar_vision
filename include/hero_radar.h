@@ -8,7 +8,7 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <tf/transform_datatypes.h>
-
+#include "geometry_msgs/Point.h"
 
 class SubscriberPublisher
 {
@@ -22,10 +22,20 @@ private:
 
     ros::Subscriber sub_;
     ros::Publisher pub_;
+    ros::Publisher pub2_;
+    ros::Publisher pub3_;
     std::string subscribe_topic_;
     std::string publish_topic_;
+    std::string position_topic_;
+    std::string odom_topic_;
     tf2_ros::TransformBroadcaster br_;
 
+
+    struct Hero2targetposition {
+        float hero_X;
+        float hero_Y;
+        float hero_Z;
+    }hero2targetposition;
 
     struct Laserposition {
         float laser_X;
@@ -60,9 +70,9 @@ private:
 
     float Distance_target;
     struct TargetPos {
-        float x = 10.0;
-        float y = 10.0;
-        float z = 10.0;
+        float x = 3.275;
+        float y = 23.383;
+        float z = 1.043;
     } targetPos;
 };
 

@@ -5,9 +5,12 @@
 SubscriberPublisher::SubscriberPublisher(ros::NodeHandle& nh) {
     subscribe_topic_ = nh.param<std::string>("subscribe_topic", "/Odometry");
     publish_topic_ = nh.param<std::string>("publish_topic", "/output");
-
+    position_topic_ = nh.param<std::string>("position_topic", "/hero2target");
+    odom_topic_= nh.param<std::string>("odom_topic", "/odom2hero");
     sub_ = nh.subscribe(subscribe_topic_, 1000, &SubscriberPublisher::callback, this);
     pub_ = nh.advertise<std_msgs::Float64>(publish_topic_, 1000);
+    pub2_ = nh.advertise<geometry_msgs::Point>(position_topic_, 1000);
+    pub3_ = nh.advertise<geometry_msgs::Point>(odom_topic_, 1000);
 }
 
 void SubscriberPublisher::callback(const nav_msgs::Odometry::ConstPtr& msg) {
@@ -37,10 +40,27 @@ void SubscriberPublisher::doLaser(const nav_msgs::Odometry& msg) {
                            (baselinkposition.y() - targetPos.y) * (baselinkposition.y() - targetPos.y) +
                            (baselinkposition.z() - targetPos.z) * (baselinkposition.z() - targetPos.z));
 //    Distance_target /= 1000;
+    hero2targetposition.hero_X=targetPos.x-baselinkposition.x();
+    hero2targetposition.hero_Y=targetPos.y-baselinkposition.y();
+    hero2targetposition.hero_Z=targetPos.z-baselinkposition.z();
+
+    geometry_msgs::Point point_msg;
+    point_msg.x=hero2targetposition.hero_X;
+    point_msg.y=hero2targetposition.hero_Y;
+    point_msg.z=hero2targetposition.hero_Z;
+    pub2_.publish(point_msg);
+
+    geometry_msgs::Point hero_msg;
+    hero_msg.x=baselinkposition.x();
+    hero_msg.y=baselinkposition.y();
+    hero_msg.z=baselinkposition.z();
+    pub3_.publish(hero_msg);
 
     std_msgs::Float64 distance_msg;
     distance_msg.data = Distance_target;
     pub_.publish(distance_msg);
+
+
     baselinkposition1.baselink_X=baselinkposition.x();
     baselinkposition1.baselink_Y=baselinkposition.y();
     baselinkposition1.baselink_Z=baselinkposition.z();
