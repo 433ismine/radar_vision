@@ -1,15 +1,12 @@
 
 
 <launch>
-    <arg name="subscribe_topic" default="/Odometry"/>
-    <arg name="publish_topic" default="/output"/>
-    <arg name="position_topic" default="/hero2target"/>
-    <arg name="odom_topic" default="/odom2hero"/>
 
+    <rosparam command="load" file="$(find radar_vision)/config/target.yaml" />
     <node name="radar_vision" pkg="radar_vision" type="radar_vision_node" output="screen">
         <param name="subscribe_topic" value="/Odometry"/>
         <param name="publish_topic" value="/output"/>
-        <param name="position_topic" value="/hero2target"/>
+        <param name="position_topic" value="/odom2target"/>
         <param name="odom_topic" value="/odom2hero"/>
     </node>
 

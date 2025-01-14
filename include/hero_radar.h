@@ -9,6 +9,7 @@
 #include <geometry_msgs/TransformStamped.h>
 #include <tf/transform_datatypes.h>
 #include "geometry_msgs/Point.h"
+#include <rm_msgs/TrackData.h>
 
 class SubscriberPublisher
 {
@@ -28,6 +29,9 @@ private:
     std::string publish_topic_;
     std::string position_topic_;
     std::string odom_topic_;
+    std::uint8_t targetid=8;
+    std::uint8_t heroid=1;
+
     tf2_ros::TransformBroadcaster br_;
 
 
@@ -70,9 +74,9 @@ private:
 
     float Distance_target;
     struct TargetPos {
-        float x = 3.275;
-        float y = 23.383;
-        float z = 1.043;
+        float x ;
+        float y ;
+        float z ;
     } targetPos;
 };
 
