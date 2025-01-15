@@ -53,8 +53,8 @@ void SubscriberPublisher::doLaser(const nav_msgs::Odometry& msg) {
     pub2_.publish(point_msg);
 
     rm_msgs::TrackData hero_msg;
-    hero_msg.position.x=baselinkposition.x();
-    hero_msg.position.y=baselinkposition.y();
+    hero_msg.position.x=-baselinkposition.x();
+    hero_msg.position.y=-baselinkposition.y();
     hero_msg.position.z=baselinkposition.z();
     hero_msg.header.frame_id="odom";
     hero_msg.id=heroid;
@@ -65,8 +65,8 @@ void SubscriberPublisher::doLaser(const nav_msgs::Odometry& msg) {
     pub_.publish(distance_msg);
 
 
-    baselinkposition1.baselink_X=baselinkposition.x();
-    baselinkposition1.baselink_Y=baselinkposition.y();
+    baselinkposition1.baselink_X=-baselinkposition.x();
+    baselinkposition1.baselink_Y=-baselinkposition.y();
     baselinkposition1.baselink_Z=baselinkposition.z();
 
     publishTF(msg);
